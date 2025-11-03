@@ -1,0 +1,38 @@
+plugins {
+    id 'java-gradle-plugin'
+    id 'maven-publish'
+}
+
+group = 'com.hys.jacoco'
+version = '1.0.0'
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_11
+    targetCompatibility = JavaVersion.VERSION_11
+    withSourcesJar()
+}
+
+repositories {
+    google()
+    mavenCentral()
+}
+
+dependencies {
+    implementation gradleApi()
+    implementation 'com.android.tools.build:gradle:8.11.2'
+    implementation 'org.ow2.asm:asm:9.7'
+    implementation 'org.ow2.asm:asm-commons:9.7'
+    implementation 'org.jetbrains.kotlin:kotlin-stdlib:1.9.24'
+}
+
+gradlePlugin {
+    plugins {
+        jacocoAutoInit {
+            id = 'com.hys.jacoco.auto-init'
+            implementationClass = 'com.hys.jacoco.plugin.JacocoAutoInitPlugin'
+            displayName = 'Jacoco Auto Init Plugin'
+            description = 'Automatically wires Jacoco runtime init into Android Application onCreate via bytecode instrumentation.'
+        }
+    }
+}
+
